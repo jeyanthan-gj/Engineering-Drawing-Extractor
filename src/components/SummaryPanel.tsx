@@ -8,7 +8,7 @@ interface SummaryPanelProps {
 const SummaryPanel = ({ summary }: SummaryPanelProps) => {
   return (
     <div className="w-full animate-slide-up" style={{ animationDelay: "0.1s", animationFillMode: "backwards" }}>
-      <div className="bg-card rounded-xl p-6 md:p-8 card-shadow-elevated border border-border/50 transition-all duration-300 hover:shadow-lg group">
+      <div className="glass-panel rounded-xl p-6 md:p-8 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 group">
         <h2 className="text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-accent transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
           Technical Summary & Analysis

@@ -41,7 +41,7 @@ const CropCard = ({
 
   return (
     <div
-      className="bg-card rounded-xl overflow-hidden card-shadow-elevated border border-border/50 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 animate-slide-up group"
+      className="glass-panel rounded-xl overflow-hidden hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300 animate-slide-up group hover:-translate-y-1"
       style={{ animationDelay: `${animationDelay}ms`, animationFillMode: "backwards" }}
     >
       {/* Header */}

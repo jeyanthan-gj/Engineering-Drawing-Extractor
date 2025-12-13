@@ -5,6 +5,8 @@ import UploadCard from "@/components/UploadCard";
 import ImageComparison from "@/components/ImageComparison";
 import SummaryPanel from "@/components/SummaryPanel";
 import CropGrid from "@/components/CropGrid";
+import Footer from "@/components/Footer";
+import ParticleBackground from "@/components/ParticleBackground";
 
 interface Crop {
   cls_name: string;
@@ -77,8 +79,17 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-7xl mx-auto px-4 pb-16">
+    <div className="min-h-screen bg-background relative overflow-hidden selection:bg-primary/20">
+      {/* Live Particle Background */}
+      <ParticleBackground />
+
+      {/* Subtle Static Glow for Depth - reduced opacity */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-primary/5 rounded-full blur-[100px] opacity-20" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-accent/5 rounded-full blur-[100px] opacity-20" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 pb-16 relative z-10">
         <Header />
 
         <div className="space-y-8">
@@ -110,6 +121,7 @@ const Index = () => {
           )}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

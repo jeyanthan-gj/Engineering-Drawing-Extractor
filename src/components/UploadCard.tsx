@@ -71,10 +71,12 @@ const UploadCard = ({ onAnalyze, isLoading, statusText }: UploadCardProps) => {
   return (
     <div className="w-full max-w-3xl mx-auto">
       <div
-        className="bg-card rounded-xl p-6 md:p-8 card-shadow-elevated border border-border/50 animate-fade-in transition-all duration-300 hover:shadow-lg"
+        className="glass-panel rounded-2xl p-6 md:p-8 animate-fade-in transition-all duration-300 hover:shadow-2xl hover:border-primary/20 relative overflow-hidden group"
         style={{ animationDelay: "0.15s", animationFillMode: "backwards" }}
       >
-        <div className="space-y-6">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+        <div className="space-y-6 relative z-10">
           {/* File Upload Area */}
           <div className="space-y-2">
             <Label className="text-sm font-semibold text-foreground">
@@ -86,10 +88,10 @@ const UploadCard = ({ onAnalyze, isLoading, statusText }: UploadCardProps) => {
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               className={`relative border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all duration-300 ${isDragging
-                  ? "border-primary bg-primary/10 scale-[1.02]"
-                  : preview
-                    ? "border-primary/50 bg-primary/5"
-                    : "border-border hover:border-primary/50 hover:bg-muted/50"
+                ? "border-primary bg-primary/10 scale-[1.02]"
+                : preview
+                  ? "border-primary/50 bg-primary/5"
+                  : "border-border hover:border-primary/50 hover:bg-muted/50"
                 }`}
             >
               <input

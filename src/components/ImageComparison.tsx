@@ -17,7 +17,7 @@ const ImageComparison = ({ originalImage, annotatedImage, annotatedBase64 }: Ima
 
   return (
     <div className="w-full animate-slide-up">
-      <div className="bg-card rounded-xl p-6 md:p-8 card-shadow-elevated border border-border/50 transition-all duration-300 hover:shadow-lg">
+      <div className="glass-panel rounded-xl p-6 md:p-8 transition-all duration-300 hover:shadow-2xl">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
             <ImageIcon className="w-5 h-5 text-primary" />
@@ -33,7 +33,7 @@ const ImageComparison = ({ originalImage, annotatedImage, annotatedBase64 }: Ima
             Download Annotated
           </Button>
         </div>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Original Image */}
           <div className="space-y-3 group">
