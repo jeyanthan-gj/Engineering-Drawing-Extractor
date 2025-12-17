@@ -107,7 +107,7 @@ const Index = () => {
                 // First visual update
                 currentResult = {
                   ...currentResult,
-                  annotated_image: event.data.annotated_image,
+                  annotated_image: event.data?.annotated_image || "",
                 };
                 setResult({ ...currentResult });
                 break;
@@ -116,28 +116,35 @@ const Index = () => {
                 // Add page extraction data
                 currentResult = {
                   ...currentResult,
-                  full_page_vlm_text: event.data.full_page_vlm_text,
-                  page_extract_text: event.data.page_extract_text,
-                  page_extract_table: event.data.page_extract_table,
-                  page_extract_csv_path: event.data.page_extract_csv_path,
+                  full_page_vlm_text: event.data?.full_page_vlm_text || "",
+                  page_extract_text: event.data?.page_extract_text || "",
+                  page_extract_table: event.data?.page_extract_table || {},
+                  page_extract_csv_path: event.data?.page_extract_csv_path || "",
                 };
                 setResult({ ...currentResult });
                 break;
 
               case "crop_result":
                 // Append new crop (Live update!)
-                currentResult = {
-                  ...currentResult,
-                  crops: [...currentResult.crops, event.data],
-                };
-                setResult({ ...currentResult });
+                if (event.data) {
+                  const newCrop = {
+                    ...event.data,
+                    cls_name: event.data.cls_name || "unknown", // Fallback to prevent crash
+                    conf: event.data.conf || 0,
+                  };
+                  currentResult = {
+                    ...currentResult,
+                    crops: [...currentResult.crops, newCrop],
+                  };
+                  setResult({ ...currentResult });
+                }
                 break;
 
               case "summary":
                 // Final summary
                 currentResult = {
                   ...currentResult,
-                  llm_summary: event.data.llm_summary,
+                  llm_summary: String(event.data?.llm_summary || ""), // Ensure string
                 };
                 setResult({ ...currentResult });
                 break;
@@ -150,6 +157,23 @@ const Index = () => {
           } catch (e) {
             console.error("Error parsing stream chunk:", e);
           }
+        }
+      }
+
+      // Process remaining buffer if any
+      if (buffer.trim()) {
+        try {
+          const event = JSON.parse(buffer);
+          // Handle only critical updates from remainder
+          if (event.type === "summary") {
+            currentResult = {
+              ...currentResult,
+              llm_summary: String(event.data?.llm_summary || ""),
+            };
+            setResult({ ...currentResult });
+          }
+        } catch (e) {
+          console.error("Error parsing final buffer:", e);
         }
       }
 
@@ -206,10 +230,8 @@ const Index = () => {
                 <SummaryPanel summary={result.llm_summary} />
               )}
 
-              {/* Extraction Table - Show when available */}
-              {result.page_extract_table && (
-                <ExtractionTable data={result.page_extract_table} />
-              )}
+              {/* Extraction Table */}
+              <ExtractionTable data={result.page_extract_table ?? {}} />
 
               {/* Crop Grid - Shows live updates as crops array grows */}
               {result.crops.length > 0 && (

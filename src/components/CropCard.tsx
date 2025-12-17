@@ -18,13 +18,13 @@ interface CropCardProps {
 
 const CropCard = ({
   index,
-  className,
-  confidence,
-  rawCropImage,
-  enhancedCropImage,
-  rawBase64,
-  enhancedBase64,
-  vlmDescription,
+  className = "unknown",
+  confidence = 0,
+  rawCropImage = "",
+  enhancedCropImage = "",
+  rawBase64 = "",
+  enhancedBase64 = "",
+  vlmDescription = "",
   animationDelay = 0,
 }: CropCardProps) => {
   const confidencePercent = (confidence * 100).toFixed(1);
